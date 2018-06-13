@@ -1,0 +1,29 @@
+ {
+  "name": Jeff CustomLinked product type",
+  "description": "Magento 2 extension",
+  "require": {
+    "php": "~5.5.0|~5.6.0|~7.0.0",
+    "mageplaza/core-m2": "dev-master"
+  },
+  "type": "magento2-module",
+  "version": "1.1.1",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "authors": [
+    {
+      "name": "Jeff",
+      "homepage": "http://techjeffyu.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Jeff\\CustomLinked\\": ""
+    }
+  }
+}
