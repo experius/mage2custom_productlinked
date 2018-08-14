@@ -7,22 +7,26 @@ use Magento\Ui\Component\Form\Fieldset;
 class Related extends RelatedParent
 {
     const GROUP_RELATED = 'related';
-    const DATA_SCOPE_CUSTOMLINKED = 'customlinked';
+
     private $priceModifier;
+
     protected $product;
+
     public function afterModifyMeta($modify, $result)
     {
         if (isset($result[static::GROUP_RELATED]['children'])) {
-            $result[static::GROUP_RELATED]['children'][$modify->scopePrefix . static::DATA_SCOPE_CUSTOMLINKED] = $this->getCustomlinkedFieldset($modify);
+            $result[static::GROUP_RELATED]['children'][$modify->scopePrefix . \Jeff\CustomLinked\Model\Product\Link::LINK_TYPE_CODE_CUSTOMLINKED] = $this->getCustomlinkedFieldset($modify);
         }
         return $result;
     }
+
     /**
      * Get price modifier
      *
      * @return \Magento\Catalog\Ui\Component\Listing\Columns\Price
      * @deprecated 101.0.0
      */
+
     private function getPriceModifier($modify)
     {
         if (!$this->priceModifier) {
@@ -32,6 +36,7 @@ class Related extends RelatedParent
         }
         return $this->priceModifier;
     }
+
     /**
      * Prepares config for the Related products fieldset
      *
@@ -48,13 +53,13 @@ class Related extends RelatedParent
                 'button_set' => $modify->getButtonSet(
                     $content,
                     __('Add Custom Linked'),
-                    $modify->scopePrefix . static::DATA_SCOPE_CUSTOMLINKED
+                    $modify->scopePrefix . \Jeff\CustomLinked\Model\Product\Link::LINK_TYPE_CODE_CUSTOMLINKED
                 ),
                 'modal' => $this->getGenericModal(
                     __('Add Custom Linked'),
-                    $modify->scopePrefix . static::DATA_SCOPE_CUSTOMLINKED
+                    $modify->scopePrefix . \Jeff\CustomLinked\Model\Product\Link::LINK_TYPE_CODE_CUSTOMLINKED
                 ),
-                static::DATA_SCOPE_CUSTOMLINKED => $this->getGrid($modify->scopePrefix . static::DATA_SCOPE_CUSTOMLINKED),
+                \Jeff\CustomLinked\Model\Product\Link::LINK_TYPE_CODE_CUSTOMLINKED => $this->getGrid($modify->scopePrefix . \Jeff\CustomLinked\Model\Product\Link::LINK_TYPE_CODE_CUSTOMLINKED),
             ],
             'arguments' => [
                 'data' => [
@@ -70,6 +75,7 @@ class Related extends RelatedParent
             ]
         ];
     }
+
     public function afterModifyData($modify, $data)
     {
         $product = $modify->locator->getProduct();
@@ -83,9 +89,9 @@ class Related extends RelatedParent
          */
         $priceModifier->setData('name', 'price');
         $dataScopes = $this->getDataScopes();
-        $dataScopes[] = static::DATA_SCOPE_CUSTOMLINKED;
+        $dataScopes[] = \Jeff\CustomLinked\Model\Product\Link::LINK_TYPE_CODE_CUSTOMLINKED;
         foreach ($dataScopes as $dataScope) {
-            if ($dataScope == static::DATA_SCOPE_CUSTOMLINKED) {
+            if ($dataScope == \Jeff\CustomLinked\Model\Product\Link::LINK_TYPE_CODE_CUSTOMLINKED) {
                 $data[$productId]['links'][$dataScope] = [];
                 foreach ($modify->productLinkRepository->getList($product) as $linkItem) {
                     if ($linkItem->getLinkType() !== $dataScope) {
@@ -112,6 +118,7 @@ class Related extends RelatedParent
         
         return $data;
     }
+
     public function beforeGetLinkedProducts($provider, $product)
     {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
