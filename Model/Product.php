@@ -1,11 +1,13 @@
 <?php
 namespace Jeff\CustomLinked\Model;
+
 /**
  * Class \Magento\Catalog\Model\ProductLink\CollectionProvider\Related
  *
  */
-class Product Extends \Magento\Catalog\Model\Product
-{   
+class Product extends \Magento\Catalog\Model\Product
+{
+
     const LINK_TYPE_CUSTOMLINKED = 17;
     /**
      * Retrieve array of related products
