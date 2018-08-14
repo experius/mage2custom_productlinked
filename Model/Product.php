@@ -8,7 +8,6 @@ namespace Jeff\CustomLinked\Model;
 class Product extends \Magento\Catalog\Model\Product
 {
 
-    const LINK_TYPE_CUSTOMLINKED = 17;
     /**
      * Retrieve array of related products
      *
@@ -49,7 +48,10 @@ class Product extends \Magento\Catalog\Model\Product
      */
     public function getCustomlinkedProductCollection()
     {
-        $collection = $this->getLinkInstance()->setLinkTypeId(static::LINK_TYPE_CUSTOMLINKED)->getProductCollection()->setIsStrongMode();
+        $collection = $this->getLinkInstance()
+            ->setLinkTypeId(\Jeff\CustomLinked\Model\Product\Link::LINK_TYPE_CUSTOMLINKED)
+            ->getProductCollection()
+            ->setIsStrongMode();
         $collection->setProduct($this);
         return $collection;
     }
