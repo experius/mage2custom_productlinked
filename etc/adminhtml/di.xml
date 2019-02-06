@@ -3,7 +3,4 @@
     <type name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Related">
         <plugin name="custom_change_modifyMeta_after" type="Jeff\CustomLinked\Plugin\Related" />
     </type>
-    <type name="Jeff\CustomLinked\Model\ProductLink\CollectionProvider\Customlinked">
-        <plugin name="change_link_before" type="Jeff\CustomLinked\Plugin\Related" />
-    </type>
 </config>

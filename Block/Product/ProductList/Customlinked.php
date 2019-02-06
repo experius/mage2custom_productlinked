@@ -88,17 +88,13 @@ class Customlinked extends \Magento\Catalog\Block\Product\AbstractProduct
     protected function _prepareData()
     {
         /* @var $coreProduct \Magento\Catalog\Model\Product */
-        $coreProduct = $this->_coreRegistry->registry('product');
+        $product = $this->_coreRegistry->registry('product');
 
-        /* @var $product \Jeff\CustomLinked\Model\Product */
-        $product = $this->productModelWithCustomLinks->load($coreProduct->getId());
-
-        $this->_itemCollection = $product->getCustomlinkedProductCollection()->setPositionOrder()->addStoreFilter();
+        $this->_itemCollection =  $this->productModelWithCustomLinks->getCustomlinkedProductCollection($product)->setPositionOrder()->addStoreFilter();
         if ($this->moduleManager->isEnabled('Magento_Checkout')) {
             $this->_addProductAttributesAndPrices($this->_itemCollection);
         }
         $this->_itemCollection->setVisibility($this->_catalogProductVisibility->getVisibleInCatalogIds());
-
         $this->_itemCollection->load();
 
         /**

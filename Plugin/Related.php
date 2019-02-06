@@ -118,12 +118,4 @@ class Related extends RelatedParent
         
         return $data;
     }
-
-    public function beforeGetLinkedProducts($provider, $product)
-    {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $this->product = $objectManager->create('Jeff\CustomLinked\Model\Product');
-        $currentProduct = $this->product->load($product->getId());
-        return [$currentProduct];
-    }
 }
